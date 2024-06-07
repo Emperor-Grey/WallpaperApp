@@ -14,12 +14,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wallpapertest.ui.theme.PrimaryColor
+import com.example.wallpapertest.ui.theme.primaryContainerLight
 import com.example.wallpapertest.ui.theme.salsaFontFamily
 
 @Composable
@@ -52,9 +54,9 @@ fun SplashContent(navigateToHomeScreen: () -> Unit) {
         Button(
             onClick = navigateToHomeScreen,
             modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(PrimaryColor),
+                .fillMaxWidth()
+                .padding(horizontal = 26.dp),
+            colors = ButtonDefaults.buttonColors(primaryContainerLight),
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
@@ -62,9 +64,15 @@ fun SplashContent(navigateToHomeScreen: () -> Unit) {
                 text = "Start Exploring!",
                 fontFamily = salsaFontFamily,
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface
+                color = Color.Black
             )
         }
         Spacer(modifier = Modifier.weight(0.8f))
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SplashContentPrev() {
+    SplashContent(navigateToHomeScreen = {})
 }

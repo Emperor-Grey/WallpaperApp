@@ -17,6 +17,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             navController = rememberNavController()
             WallpaperTestTheme {
+                // Aurora - Awesome Wallpaper App
                 SetupNavigation(navController = navController)
             }
         }
