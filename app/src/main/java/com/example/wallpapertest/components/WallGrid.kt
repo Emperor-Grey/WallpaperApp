@@ -15,15 +15,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun WallGrid() {
-    val sections = (0 until 25).toList().chunked(5)
-
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalItemSpacing = 16.dp
     ) {
 
-        items(8) {
+        items(20) {
             Text(
                 "Item $it",
                 Modifier
