@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wallpapertest.components.AICard
 import com.example.wallpapertest.components.ScrollTab
+import com.example.wallpapertest.components.WallGrid
 import com.example.wallpapertest.ui.theme.salsaFontFamily
 
 @Composable
@@ -28,6 +29,7 @@ fun HomeContent(modifier: Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
+//            .verticalScroll(rememberScrollState()) // remove the comment to see the error
             .padding(16.dp)
     ) {
         AICard()
@@ -49,8 +51,11 @@ fun HomeContent(modifier: Modifier) {
         ScrollTab(categories = categories, selectedIndex = selectedIndex.intValue) {
             selectedIndex.intValue = it
         }
+        Spacer(modifier = Modifier.height(16.dp))
+        WallGrid()
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
