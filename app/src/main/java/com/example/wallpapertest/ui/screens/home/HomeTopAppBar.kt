@@ -33,7 +33,8 @@ import com.example.wallpapertest.ui.theme.salsaFontFamily
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopAppBar() {
-    TopAppBar(colors = TopAppBarDefaults.topAppBarColors(MaterialTheme.colorScheme.background),
+    TopAppBar(scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
+        colors = TopAppBarDefaults.topAppBarColors(MaterialTheme.colorScheme.background),
         title = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -87,7 +88,7 @@ fun NotificationAction(
         if (hasNotification!!) {
             Badge(
                 modifier = Modifier
-                    .align(Alignment.TopEnd)
+//                    .align(Alignment.TopEnd)
                     .size(10.dp)
             )
             IconButton(onClick = onNotificationClicked) {

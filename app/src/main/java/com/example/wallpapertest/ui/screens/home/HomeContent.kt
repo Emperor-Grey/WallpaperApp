@@ -22,7 +22,6 @@ import com.example.wallpapertest.ui.theme.salsaFontFamily
 
 @Composable
 fun HomeContent(modifier: Modifier) {
-
     val categories = listOf("Random", "Popular", "Featured", "Anime", "Nature")
     val selectedIndex = remember { mutableIntStateOf(0) }
 
@@ -30,8 +29,9 @@ fun HomeContent(modifier: Modifier) {
         modifier = modifier
             .fillMaxSize()
 //            .verticalScroll(rememberScrollState()) // remove the comment to see the error
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
     ) {
+        Spacer(modifier = Modifier.height(16.dp))
         AICard()
         Spacer(modifier = Modifier.height(16.dp))
         Text(

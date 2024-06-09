@@ -1,9 +1,12 @@
 package com.example.wallpapertest.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -31,15 +34,18 @@ fun ScrollTab(categories: List<String>, selectedIndex: Int, onTabSelected: (Int)
                 Card(
                     modifier = Modifier
                         .padding(end = 12.dp)
-                        .clickable(onClick = { onTabSelected(index) }, enabled = true)
-                        .clip(RectangleShape)
-                        .clipToBounds(), colors = CardDefaults.cardColors(
+                        .clip(RoundedCornerShape(10.dp))
+                        .clickable(
+                            onClick = { onTabSelected(index) },
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = rememberRipple(bounded = true),
+                        ), colors = CardDefaults.cardColors(
                         if (isSelected) MaterialTheme.colorScheme.primaryContainer
                         else Color.Gray.copy(
                             alpha = 0.15f
                         )
                     )
-                ) {
+                )  {
                     Text(
                         categories[index],
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
