@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import com.example.wallpapertest.R
 import com.example.wallpapertest.ui.theme.salsaFontFamily
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AICard() {
     val brush = Brush.linearGradient(

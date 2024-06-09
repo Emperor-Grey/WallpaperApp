@@ -79,7 +79,6 @@ fun NavigationIcon() {
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotificationAction(
     onNotificationClicked: () -> Unit, hasNotification: Boolean? = null
@@ -88,7 +87,7 @@ fun NotificationAction(
         if (hasNotification!!) {
             Badge(
                 modifier = Modifier
-//                    .align(Alignment.TopEnd)
+                    .align(Alignment.TopEnd)
                     .size(10.dp)
             )
             IconButton(onClick = onNotificationClicked) {

@@ -16,9 +16,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,7 +43,7 @@ fun ScrollTab(categories: List<String>, selectedIndex: Int, onTabSelected: (Int)
                             alpha = 0.15f
                         )
                     )
-                )  {
+                ) {
                     Text(
                         categories[index],
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),

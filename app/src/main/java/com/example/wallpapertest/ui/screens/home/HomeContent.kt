@@ -21,7 +21,7 @@ import com.example.wallpapertest.components.WallGrid
 import com.example.wallpapertest.ui.theme.salsaFontFamily
 
 @Composable
-fun HomeContent(modifier: Modifier) {
+fun HomeContent(modifier: Modifier, navigateToWallpaper: (Int) -> Unit) {
     val categories = listOf("Random", "Popular", "Featured", "Anime", "Nature")
     val selectedIndex = remember { mutableIntStateOf(0) }
 
@@ -52,7 +52,7 @@ fun HomeContent(modifier: Modifier) {
             selectedIndex.intValue = it
         }
         Spacer(modifier = Modifier.height(16.dp))
-        WallGrid()
+        WallGrid(onItemClick = navigateToWallpaper)
     }
 }
 
@@ -60,5 +60,5 @@ fun HomeContent(modifier: Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun HomeContentPrev() {
-    HomeContent(modifier = Modifier)
+    HomeContent(modifier = Modifier, navigateToWallpaper = {})
 }
