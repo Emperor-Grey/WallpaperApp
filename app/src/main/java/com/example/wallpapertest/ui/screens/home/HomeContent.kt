@@ -40,7 +40,6 @@ fun HomeContent(
     val images = listOf(
         R.drawable.img,
         R.drawable.fox,
-        R.drawable.flower,
         R.drawable.tree,
         R.drawable.cat,
         R.drawable.bird,
