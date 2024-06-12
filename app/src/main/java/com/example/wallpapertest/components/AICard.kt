@@ -38,7 +38,7 @@ fun AICard() {
     BoxWithConstraints(
         modifier = Modifier.fillMaxWidth(),
     ) {
-        val cardHeight = maxHeight * 0.25f
+        val cardHeight = maxWidth * 0.5f
         Card(
             onClick = {}, modifier = Modifier
                 .fillMaxWidth()
