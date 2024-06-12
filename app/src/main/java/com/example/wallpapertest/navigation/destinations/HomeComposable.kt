@@ -4,8 +4,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.wallpapertest.ui.screens.home.HomeScreen
 
-fun NavGraphBuilder.homeComposable() {
+fun NavGraphBuilder.homeComposable(navigateToWallpaper: (Int) -> Unit) {
     composable(route = "home") {
-        HomeScreen()
+        HomeScreen(navigateToWallpaper = navigateToWallpaper)
     }
 }

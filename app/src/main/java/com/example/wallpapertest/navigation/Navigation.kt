@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.example.wallpapertest.navigation.destinations.homeComposable
 import com.example.wallpapertest.navigation.destinations.splashComposable
+import com.example.wallpapertest.navigation.destinations.wallpaperComposable
 
 
 @Composable
@@ -17,6 +18,7 @@ fun SetupNavigation(navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = "splash") {
         splashComposable(navigateToHomeScreen = screen.splash)
-        homeComposable()
+        homeComposable(navigateToWallpaper = screen.home)
+        wallpaperComposable(navigateToHomeScreen = screen.wallpaper)
     }
 }
