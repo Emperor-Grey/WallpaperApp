@@ -65,15 +65,17 @@ fun WallpaperScreen(imageId: Int, navigateBack: () -> Unit) {
         }
 
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp, vertical = 22.dp)
         ) {
-            UpperButtons(navigateBack = navigateBack, showButtons = showButtons)
+            UpperButtons(navigateBack = navigateBack, showButtons = showButtons, onFavClick = {})
             Spacer(modifier = Modifier.weight(1f))
             AnimatedVisibility(
-                visible = showButtons, enter = slideInVertically(initialOffsetY = { -it }) + fadeIn(
-                    animationSpec = tween(durationMillis = 1000)
-                ), exit = slideOutVertically(targetOffsetY = { -it }) + fadeOut(
-                    animationSpec = tween(durationMillis = 1000)
+                visible = showButtons, enter = slideInVertically(initialOffsetY = { it }) + fadeIn(
+                    animationSpec = tween(durationMillis = 500)
+                ), exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(
+                    animationSpec = tween(durationMillis = 500)
                 )
             ) {
                 LowerButtons()
@@ -86,80 +88,84 @@ fun WallpaperScreen(imageId: Int, navigateBack: () -> Unit) {
 fun LowerButtons() {
     val buttonHeight = 48.dp
 
-    Button(
-        onClick = {},
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(buttonHeight),
-        colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primaryContainer),
-        shape = RoundedCornerShape(12.dp)
-    ) {
-        Text(
-            modifier = Modifier.padding(vertical = 7.dp),
-            text = "Set as Wallpaper",
-            fontFamily = salsaFontFamily,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-    }
-
-    Spacer(modifier = Modifier.height(14.dp))
-
-    Row(
-        modifier = Modifier.fillMaxWidth()
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(bottom = 16.dp)
     ) {
         Button(
-            onClick = {},
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(8f)
-                .height(buttonHeight),
-            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primaryContainer),
-            shape = RoundedCornerShape(12.dp)
+            onClick = {}, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
+                MaterialTheme.colorScheme.primaryContainer.copy(1f)
+            ), shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                modifier = Modifier.padding(vertical = 6.dp),
-                text = "Preview",
+                modifier = Modifier.padding(vertical = 5.dp),
+                text = "Set as Wallpaper",
                 fontFamily = salsaFontFamily,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground
             )
         }
-
-        Spacer(modifier = Modifier.width(12.dp))
-
-        FilledTonalIconButton(
-            onClick = {},
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(2f)
-                .height(buttonHeight),
-            shape = RoundedCornerShape(12.dp),
-            colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.primaryContainer)
+        Spacer(modifier = Modifier.height(14.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.download),
-                contentDescription = "Done Icon",
-                tint = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(horizontal = 22.dp, vertical = 8.dp)
-            )
+            Button(
+                onClick = {},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(8f)
+                    .height(buttonHeight),
+                colors = ButtonDefaults.buttonColors(
+                    MaterialTheme.colorScheme.primaryContainer.copy(1f)
+                ),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text(
+                    modifier = Modifier.padding(vertical = 5.dp),
+                    text = "Preview",
+                    fontFamily = salsaFontFamily,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            FilledTonalIconButton(
+                onClick = {},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(2f)
+                    .height(buttonHeight),
+                shape = RoundedCornerShape(12.dp),
+                colors = IconButtonDefaults.filledIconButtonColors(
+                    MaterialTheme.colorScheme.primaryContainer.copy(1f)
+                )
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.download),
+                    contentDescription = "Done Icon",
+                    tint = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(horizontal = 22.dp, vertical = 8.dp)
+                )
+            }
         }
     }
 }
 
 @Composable
-fun UpperButtons(navigateBack: () -> Unit, showButtons: Boolean) {
+fun UpperButtons(navigateBack: () -> Unit, showButtons: Boolean, onFavClick: () -> Unit) {
     AnimatedVisibility(
         visible = showButtons, enter = slideInVertically(initialOffsetY = { -it }) + fadeIn(
-            animationSpec = tween(durationMillis = 1000)
+            animationSpec = tween(durationMillis = 500)
         ), exit = slideOutVertically(targetOffsetY = { -it }) + fadeOut(
-            animationSpec = tween(durationMillis = 1000)
+            animationSpec = tween(durationMillis = 500)
         )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(vertical = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -171,7 +177,7 @@ fun UpperButtons(navigateBack: () -> Unit, showButtons: Boolean) {
             }
 
             FilledTonalIconButton(
-                onClick = { },
+                onClick = onFavClick,
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.heart),

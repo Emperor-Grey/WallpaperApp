@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
@@ -29,11 +30,13 @@ fun WallGrid(onItemClick: (Int) -> Unit) {
         columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalItemSpacing = 16.dp,
+        modifier = Modifier.fillMaxSize()
     ) {
         itemsIndexed(images) { _i, image ->
-            Card(modifier = Modifier
-                .clip(RoundedCornerShape(12))
-                .clickable(onClick = { onItemClick(image) })
+            Card(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(12))
+                    .clickable(onClick = { onItemClick(image) })
             ) {
                 AnimatedVisibility(visible = true) {
                     Image(
