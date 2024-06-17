@@ -11,12 +11,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navigateToWallpaper: (Int) -> Unit) {
+fun HomeScreen(navigateToWallpaper: (String) -> Unit, homeViewModel: HomeViewModel) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
@@ -24,7 +23,12 @@ fun HomeScreen(navigateToWallpaper: (Int) -> Unit) {
     }, floatingActionButton = {
         SearchFab()
     }, containerColor = MaterialTheme.colorScheme.background) {
-        HomeContent(padding = it, navigateToWallpaper = navigateToWallpaper,scrollBehavior)
+        HomeContent(
+            padding = it,
+            navigateToWallpaper = navigateToWallpaper,
+            scrollBehavior,
+            viewModel = homeViewModel
+        )
     }
 }
 
@@ -33,10 +37,4 @@ fun SearchFab() {
     FloatingActionButton(onClick = { /*TODO*/ }) {
         Icon(imageVector = Icons.Filled.Search, contentDescription = "Search Icon")
     }
-}
-
-@Preview
-@Composable
-private fun HomeScreenPrev() {
-    HomeScreen(navigateToWallpaper = {})
 }

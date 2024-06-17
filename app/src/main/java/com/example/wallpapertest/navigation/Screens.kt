@@ -10,7 +10,7 @@ class Screens(navController: NavController) {
         }
     }
 
-    val home: (Int) -> Unit = { imageId ->
+    val home: (String) -> Unit = { imageId ->
         navController.navigate(route = "wallpaper/$imageId")
     }
 

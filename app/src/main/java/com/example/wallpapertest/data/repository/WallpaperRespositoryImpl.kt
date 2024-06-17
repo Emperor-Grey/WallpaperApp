@@ -1,7 +1,6 @@
 package com.example.wallpapertest.data.repository
 
 import coil.network.HttpException
-import com.example.wallpapertest.data.remote.network.RetrofitInstance
 import com.example.wallpapertest.data.remote.network.api.WallHeavenApi
 import com.example.wallpapertest.domain.model.WallpaperItem
 import com.example.wallpapertest.domain.repository.WallpaperRepository
@@ -9,11 +8,12 @@ import com.example.wallpapertest.utils.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
+import javax.inject.Inject
 
-class WallpaperRepositoryImpl(private val retrofitInstance: RetrofitInstance) :
+class WallpaperRepositoryImpl @Inject constructor(private val wallpaperService: WallHeavenApi) :
     WallpaperRepository {
 
-    private val wallpaperService: WallHeavenApi = retrofitInstance.getWallpaperService()
+//    private val wallpaperService: WallHeavenApi = retrofitInstance.getWallpaperService()
 
     override suspend fun getWallpaperById(wallpaperId: String): Flow<Result<WallpaperItem>> {
         return flow {
