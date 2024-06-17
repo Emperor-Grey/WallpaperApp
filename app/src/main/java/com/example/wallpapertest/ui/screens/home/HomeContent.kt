@@ -12,12 +12,17 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -29,10 +34,12 @@ import com.example.wallpapertest.components.ScrollTab
 import com.example.wallpapertest.components.WallGridItem
 import com.example.wallpapertest.ui.theme.salsaFontFamily
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeContent(
     padding: PaddingValues,
     navigateToWallpaper: (Int) -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior,
 ) {
     val categories = listOf("Random", "Popular", "Featured", "Anime", "Nature")
     val selectedIndex = remember { mutableIntStateOf(0) }
@@ -48,21 +55,21 @@ fun HomeContent(
 
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalItemSpacing = 8.dp,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalItemSpacing = 12.dp,
         modifier = Modifier
-            .padding(padding)
             .fillMaxSize()
-            .padding(12.dp),
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .padding(paddingValues = padding)
+            .padding(horizontal = 12.dp),
     ) {
 
-        item(span = StaggeredGridItemSpan.FullLine) {
+        item(span = StaggeredGridItemSpan.FullLine,) {
             AICard()
         }
 
         item(span = StaggeredGridItemSpan.FullLine) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                Spacer(modifier = Modifier.height(12.dp))
                 Text(
                     text = "Discover",
                     fontFamily = salsaFontFamily,
@@ -80,7 +87,6 @@ fun HomeContent(
                 ScrollTab(categories = categories, selectedIndex = selectedIndex.intValue) {
                     selectedIndex.intValue = it
                 }
-                Spacer(modifier = Modifier.height(16.dp))
             }
         }
 
@@ -90,8 +96,13 @@ fun HomeContent(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 private fun HomeContentPrev() {
-    HomeContent(padding = PaddingValues(Dp.Unspecified), navigateToWallpaper = {})
+    HomeContent(
+        padding = PaddingValues(Dp.Unspecified),
+        navigateToWallpaper = {},
+        scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    )
 }

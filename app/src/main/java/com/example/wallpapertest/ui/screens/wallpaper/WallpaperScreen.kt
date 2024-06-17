@@ -34,19 +34,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wallpapertest.R
 import com.example.wallpapertest.ui.theme.salsaFontFamily
+import com.example.wallpapertest.utils.helpers.NotificationHelper
+import com.example.wallpapertest.utils.helpers.downloadImage
+import com.example.wallpapertest.utils.helpers.setAsWallpaper
+import kotlinx.coroutines.launch
 
 @Composable
 fun WallpaperScreen(imageId: Int, navigateBack: () -> Unit) {
     var showButtons by remember { mutableStateOf(true) }
+    val context = LocalContext.current
+    val notificationHelper = remember { NotificationHelper(context) }
+    val coroutineScope = rememberCoroutineScope()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Card(
@@ -78,14 +87,28 @@ fun WallpaperScreen(imageId: Int, navigateBack: () -> Unit) {
                     animationSpec = tween(durationMillis = 500)
                 )
             ) {
-                LowerButtons()
+                LowerButtons(onSetWallpaperClick = {
+                    coroutineScope.launch {
+                        setAsWallpaper(context, imageId)
+                    }
+                }, onPreviewClick = {}, onDownloadClick = {
+                    coroutineScope.launch {
+                        downloadImage(
+                            imageId = imageId,
+                            context = context,
+                            notificationHelper = notificationHelper
+                        )
+                    }
+                })
             }
         }
     }
 }
 
 @Composable
-fun LowerButtons() {
+fun LowerButtons(
+    onSetWallpaperClick: () -> Unit, onPreviewClick: () -> Unit, onDownloadClick: () -> Unit
+) {
     val buttonHeight = 48.dp
 
     Column(
@@ -93,9 +116,12 @@ fun LowerButtons() {
         modifier = Modifier.padding(bottom = 16.dp)
     ) {
         Button(
-            onClick = {}, modifier = Modifier.fillMaxWidth(), colors = ButtonDefaults.buttonColors(
+            onClick = onSetWallpaperClick,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
                 MaterialTheme.colorScheme.primaryContainer.copy(1f)
-            ), shape = RoundedCornerShape(12.dp)
+            ),
+            shape = RoundedCornerShape(12.dp)
         ) {
             Text(
                 modifier = Modifier.padding(vertical = 5.dp),
@@ -110,7 +136,7 @@ fun LowerButtons() {
             modifier = Modifier.fillMaxWidth()
         ) {
             Button(
-                onClick = {},
+                onClick = onPreviewClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(8f)
@@ -132,7 +158,7 @@ fun LowerButtons() {
             Spacer(modifier = Modifier.width(12.dp))
 
             FilledTonalIconButton(
-                onClick = {},
+                onClick = onDownloadClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(2f)
@@ -144,7 +170,7 @@ fun LowerButtons() {
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.download),
-                    contentDescription = "Done Icon",
+                    contentDescription = "download Icon",
                     tint = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.padding(horizontal = 22.dp, vertical = 8.dp)
                 )
