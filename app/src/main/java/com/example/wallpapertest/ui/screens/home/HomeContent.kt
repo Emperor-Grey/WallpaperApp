@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,9 +28,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wallpapertest.R
-import com.example.wallpapertest.components.AICard
-import com.example.wallpapertest.components.ScrollTab
-import com.example.wallpapertest.components.WallGridItem
+import com.example.wallpapertest.ui.common.components.AICard
+import com.example.wallpapertest.ui.common.components.ScrollTab
+import com.example.wallpapertest.ui.common.components.WallGridItem
 import com.example.wallpapertest.ui.theme.salsaFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,7 +63,7 @@ fun HomeContent(
             .padding(horizontal = 12.dp),
     ) {
 
-        item(span = StaggeredGridItemSpan.FullLine,) {
+        item(span = StaggeredGridItemSpan.FullLine) {
             AICard()
         }
 

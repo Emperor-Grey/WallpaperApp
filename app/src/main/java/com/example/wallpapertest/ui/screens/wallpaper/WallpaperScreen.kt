@@ -1,5 +1,6 @@
 package com.example.wallpapertest.ui.screens.wallpaper
 
+import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -91,7 +92,12 @@ fun WallpaperScreen(imageId: Int, navigateBack: () -> Unit) {
                     coroutineScope.launch {
                         setAsWallpaper(context, imageId)
                     }
-                }, onPreviewClick = {}, onDownloadClick = {
+                }, onPreviewClick = {
+                    notificationHelper.showDownloadNotification(
+                        "Hi mate",
+                        imageUri = Uri.parse("https://images.pexels.com/photos/65894/peacock-pen-alluring-yet-lure-65894.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
+                    )
+                }, onDownloadClick = {
                     coroutineScope.launch {
                         downloadImage(
                             imageId = imageId,

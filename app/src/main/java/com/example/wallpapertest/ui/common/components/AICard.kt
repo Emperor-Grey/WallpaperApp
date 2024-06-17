@@ -1,4 +1,4 @@
-package com.example.wallpapertest.components
+package com.example.wallpapertest.ui.common.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

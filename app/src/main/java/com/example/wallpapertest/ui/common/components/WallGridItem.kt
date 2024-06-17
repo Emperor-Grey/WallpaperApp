@@ -1,4 +1,4 @@
-package com.example.wallpapertest.components
+package com.example.wallpapertest.ui.common.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image

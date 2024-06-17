@@ -1,4 +1,4 @@
-package com.example.wallpapertest.components
+package com.example.wallpapertest.ui.common.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

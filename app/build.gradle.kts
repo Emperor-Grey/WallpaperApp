@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
+//    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -62,12 +65,24 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.ui.text.google.fonts)
-
     // Animation
     implementation(libs.androidx.animation)
-
     // Coil
     implementation(libs.coil.compose)
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    // ViewModels
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    kapt(libs.androidx.lifecycle.compiler)
+    // Retrofit
+    implementation(libs.retrofit)
+    // Convertor factory
+    implementation(libs.converter.gson)
+    // Logging Interceptors
+    implementation(libs.logging.interceptor)
+    // Dagger and hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -76,4 +91,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+kapt {
+    correctErrorTypes = true
 }
