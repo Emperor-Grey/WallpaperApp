@@ -1,6 +1,5 @@
 package com.example.wallpapertest.di
 
-import com.example.wallpapertest.data.remote.network.RetrofitInstance
 import com.example.wallpapertest.data.remote.network.api.WallHeavenApi
 import com.example.wallpapertest.data.repository.WallpaperRepositoryImpl
 import com.example.wallpapertest.domain.repository.WallpaperRepository

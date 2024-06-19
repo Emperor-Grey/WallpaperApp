@@ -4,14 +4,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.wallpapertest.R
 import com.example.wallpapertest.ui.screens.wallpaper.WallpaperScreen
 
 fun NavGraphBuilder.wallpaperComposable(navigateToHomeScreen: () -> Unit) {
     composable(route = "wallpaper/{imageId}", arguments = listOf(navArgument("imageId") {
-        type = NavType.IntType
+        type = NavType.StringType
     })) { backStackEntry ->
-        val imageId = backStackEntry.arguments?.getInt("imageId") ?: R.drawable.img
+        val imageId = backStackEntry.arguments?.getString("imageId") ?: ""
         WallpaperScreen(imageId = imageId, navigateBack = navigateToHomeScreen)
     }
 }

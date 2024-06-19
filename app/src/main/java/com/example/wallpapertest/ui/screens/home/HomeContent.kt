@@ -1,6 +1,7 @@
 package com.example.wallpapertest.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -23,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
@@ -99,17 +101,22 @@ fun HomeContent(
         when (val result = wallpapersState) {
             is Result.Loading -> {
                 item(span = StaggeredGridItemSpan.FullLine) {
-                    CircularProgressIndicator(
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp)
-                    )
+                            .padding(16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
                 }
             }
 
             is Result.Success -> {
-                itemsIndexed(result.data!!) { _, wallpaper ->
-                    WallGridItem(image = wallpaper.path, onItemClick = navigateToWallpaper)
+                if (result.data != null) {
+                    itemsIndexed(result.data) { _, wallpaper ->
+                        WallGridItem(wallpaper = wallpaper, onItemClick = navigateToWallpaper)
+                    }
                 }
             }
 

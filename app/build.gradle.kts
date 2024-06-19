@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.retrofit)
     // Convertor factory
     implementation(libs.converter.gson)
+    implementation(libs.retrofit.converters)
     // Logging Interceptors
     implementation(libs.logging.interceptor)
     // Dagger and hilt

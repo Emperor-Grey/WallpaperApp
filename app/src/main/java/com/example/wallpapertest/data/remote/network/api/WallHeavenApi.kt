@@ -13,43 +13,43 @@ interface WallHeavenApi {
 
     // https://wallhaven.cc/api/v1/w/6d6k3w  6d6k3w ---> wallpaperId
     @GET("w/{wallpaperId}")
-    fun getWallpaperById(
+    suspend fun getWallpaperById(
         @Path("wallpaperId") wallpaperId: String, @Query("page") page: Int = 1
     ): WallpaperItem
 
     // https://wallhaven.cc/api/v1/search?sorting=random
     @GET("search")
-    fun getRandomWallpapers(
+    suspend fun getRandomWallpapers(
         @Query("sorting") sorting: String = "random", @Query("page") page: Int = 1
     ): WallpaperResponse
 
     // https://wallhaven.cc/api/v1/search?sorting=hot
     @GET("search")
-    fun getHotWallpapers(
+    suspend fun getHotWallpapers(
         @Query("sorting") sorting: String = "hot", @Query("page") page: Int = 1
     ): WallpaperResponse
 
     // https://wallhaven.cc/api/v1/search?sorting=toplist
     @GET("search")
-    fun getPopularWallpapers(
+    suspend fun getPopularWallpapers(
         @Query("sorting") sorting: String = "toplist", @Query("page") page: Int = 1
     ): WallpaperResponse
 
     // https://wallhaven.cc/api/v1/search?sorting=favorites
     @GET("search")
-    fun getFeaturedWallpapers(
+    suspend fun getFeaturedWallpapers(
         @Query("sorting") sorting: String = "favorites", @Query("page") page: Int = 1
     ): WallpaperResponse
 
     // https://wallhaven.cc/api/v1/search?sorting=views
     @GET("search")
-    fun getMostViewedWallpapers(
+    suspend fun getMostViewedWallpapers(
         @Query("sorting") sorting: String = "views", @Query("page") page: Int = 1
     ): WallpaperResponse
 
     // https://wallhaven.cc/api/v1/search?sorting=date_added
     @GET("search")
-    fun getLatestWallpapers(
+    suspend fun getLatestWallpapers(
         @Query("sorting") sorting: String = "date_added", @Query("page") page: Int = 1
     ): WallpaperResponse
 

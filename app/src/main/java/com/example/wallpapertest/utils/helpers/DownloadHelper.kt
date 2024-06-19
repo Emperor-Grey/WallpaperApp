@@ -4,12 +4,11 @@ import android.app.WallpaperManager
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
-import androidx.core.graphics.drawable.toBitmap
 import coil.ImageLoader
 import coil.request.ImageRequest
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +19,14 @@ import java.io.IOException
 import java.io.OutputStream
 
 suspend fun downloadImage(
-    context: Context, imageId: Int, notificationHelper: NotificationHelper
+    context: Context, imageUrl: String, notificationHelper: NotificationHelper
 ) = withContext(Dispatchers.IO) {
-    val bitmap = BitmapFactory.decodeResource(context.resources, imageId)
-    val filename = "${imageId}.jpg"
+    val loader = ImageLoader(context)
+    val request = ImageRequest.Builder(context).data(imageUrl).allowHardware(false).build()
+
+    val result = loader.execute(request)
+    val bitmap = (result.drawable as BitmapDrawable).bitmap
+    val filename = "${System.currentTimeMillis()}.jpg"
 
     val fileOutputStream: OutputStream?
     val imageUri: Uri?
@@ -55,14 +58,14 @@ suspend fun downloadImage(
 }
 
 
-suspend fun setAsWallpaper(context: Context, imageId: Int) = withContext(Dispatchers.IO) {
+suspend fun setAsWallpaper(context: Context, imageUrl: String) = withContext(Dispatchers.IO) {
     val wallpaperManager = WallpaperManager.getInstance(context)
 
     val loader = ImageLoader(context)
-    val request = ImageRequest.Builder(context).data(context.resources.getDrawable(imageId)).build()
-    val bitmap = withContext(Dispatchers.Main) {
-        loader.execute(request).drawable?.toBitmap()
-    }
+    val request = ImageRequest.Builder(context).data(imageUrl).allowHardware(false).build()
+
+    val result = loader.execute(request)
+    val bitmap = (result.drawable as BitmapDrawable).bitmap
 
     try {
         wallpaperManager.setBitmap(bitmap)

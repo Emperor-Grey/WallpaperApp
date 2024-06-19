@@ -7,7 +7,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -44,6 +43,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.ImageLoader
+import coil.compose.AsyncImage
 import com.example.wallpapertest.R
 import com.example.wallpapertest.ui.theme.salsaFontFamily
 import com.example.wallpapertest.utils.helpers.NotificationHelper
@@ -52,7 +53,7 @@ import com.example.wallpapertest.utils.helpers.setAsWallpaper
 import kotlinx.coroutines.launch
 
 @Composable
-fun WallpaperScreen(imageId: Int, navigateBack: () -> Unit) {
+fun WallpaperScreen(imageId: String, navigateBack: () -> Unit) {
     var showButtons by remember { mutableStateOf(true) }
     val context = LocalContext.current
     val notificationHelper = remember { NotificationHelper(context) }
@@ -66,11 +67,12 @@ fun WallpaperScreen(imageId: Int, navigateBack: () -> Unit) {
                     indication = null,
                     interactionSource = remember { MutableInteractionSource() })
         ) {
-            Image(
-                painter = painterResource(id = imageId),
-                contentDescription = "Wallpaper Image",
+            AsyncImage(
+                model = imageId,
+                contentDescription = "image",
                 contentScale = ContentScale.FillBounds,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                imageLoader = ImageLoader.Builder(LocalContext.current).build()
             )
         }
 
@@ -100,7 +102,7 @@ fun WallpaperScreen(imageId: Int, navigateBack: () -> Unit) {
                 }, onDownloadClick = {
                     coroutineScope.launch {
                         downloadImage(
-                            imageId = imageId,
+                            imageUrl = imageId,
                             context = context,
                             notificationHelper = notificationHelper
                         )
@@ -225,5 +227,5 @@ fun UpperButtons(navigateBack: () -> Unit, showButtons: Boolean, onFavClick: () 
 @Preview
 @Composable
 private fun WallpaperScreenPrev() {
-    WallpaperScreen(imageId = R.drawable.cat, navigateBack = {})
+    WallpaperScreen(imageId = "", navigateBack = {})
 }
