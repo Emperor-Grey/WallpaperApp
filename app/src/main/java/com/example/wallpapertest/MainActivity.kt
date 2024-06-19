@@ -9,13 +9,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.wallpapertest.navigation.SetupNavigation
 import com.example.wallpapertest.ui.screens.home.HomeViewModel
+import com.example.wallpapertest.ui.screens.wallpaper.WallpaperViewModel
 import com.example.wallpapertest.ui.theme.WallpaperTestTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
-    private val viewModel:HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
+    private val wallpaperViewModel: WallpaperViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,7 +25,11 @@ class MainActivity : ComponentActivity() {
             navController = rememberNavController()
             WallpaperTestTheme {
                 // Aurora - Awesome Wallpaper App
-                SetupNavigation(navController = navController,homeViewModel = viewModel)
+                SetupNavigation(
+                    navController = navController,
+                    homeViewModel = homeViewModel,
+                    wallpaperViewModel = wallpaperViewModel
+                )
             }
         }
     }

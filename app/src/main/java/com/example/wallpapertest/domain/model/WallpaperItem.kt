@@ -2,14 +2,25 @@ package com.example.wallpapertest.domain.model
 
 data class WallpaperItem(
     val id: String,
-    val category: String,  // really important
-    val colors: List<String>,
-    val created_at: String,
+    val url: String,
+    val shortUrl: String,
+    val uploader: Uploader,
+    val views: Int,
+    val favorites: Int,
+    val source: String,
+    val purity: String,
+    val category: String,
     val dimension_x: Int,
     val dimension_y: Int,
-    val favorites: Int,
-    val file_type: String,
-    val path: String,  // contains the wallpaper image
     val resolution: String,
-    val views: Int
+    val ratio: String,
+    val file_size: Int,
+    val file_type: String,
+    val created_at: String,
+    val colors: List<String>,
+    val path: String
+)
+
+data class Uploader(
+    val username: String, val group: String
 )

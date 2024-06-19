@@ -31,6 +31,8 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,23 +43,45 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import com.example.wallpapertest.R
 import com.example.wallpapertest.ui.theme.salsaFontFamily
+import com.example.wallpapertest.utils.Result
 import com.example.wallpapertest.utils.helpers.NotificationHelper
 import com.example.wallpapertest.utils.helpers.downloadImage
 import com.example.wallpapertest.utils.helpers.setAsWallpaper
 import kotlinx.coroutines.launch
 
 @Composable
-fun WallpaperScreen(imageId: String, navigateBack: () -> Unit) {
+fun WallpaperScreen(
+    imageId: String, navigateBack: () -> Unit, wallpaperViewModel: WallpaperViewModel
+) {
+    val wallpaperState by wallpaperViewModel.wallpaper.collectAsState()
+
+    when (wallpaperState) {
+        is Result.Error -> {
+
+        }
+
+        is Result.Loading -> {
+
+        }
+
+        is Result.Success -> {
+
+        }
+    }
+
     var showButtons by remember { mutableStateOf(true) }
     val context = LocalContext.current
     val notificationHelper = remember { NotificationHelper(context) }
     val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(imageId) {
+        wallpaperViewModel.loadWallpaper(imageId)
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Card(
@@ -224,8 +248,8 @@ fun UpperButtons(navigateBack: () -> Unit, showButtons: Boolean, onFavClick: () 
     }
 }
 
-@Preview
-@Composable
-private fun WallpaperScreenPrev() {
-    WallpaperScreen(imageId = "", navigateBack = {})
-}
+//@Preview
+//@Composable
+//private fun WallpaperScreenPrev() {
+//    WallpaperScreen(imageId = "", navigateBack = {})
+//}
