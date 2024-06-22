@@ -25,6 +25,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
@@ -48,7 +49,6 @@ import coil.ImageLoader
 import coil.compose.AsyncImage
 import com.example.wallpapertest.R
 import com.example.wallpapertest.ui.theme.salsaFontFamily
-import com.example.wallpapertest.utils.Result
 import com.example.wallpapertest.utils.helpers.NotificationHelper
 import com.example.wallpapertest.utils.helpers.downloadImage
 import com.example.wallpapertest.utils.helpers.setAsWallpaper
@@ -58,21 +58,7 @@ import kotlinx.coroutines.launch
 fun WallpaperScreen(
     imageId: String, navigateBack: () -> Unit, wallpaperViewModel: WallpaperViewModel
 ) {
-    val wallpaperState by wallpaperViewModel.wallpaper.collectAsState()
-
-    when (wallpaperState) {
-        is Result.Error -> {
-
-        }
-
-        is Result.Loading -> {
-
-        }
-
-        is Result.Success -> {
-
-        }
-    }
+    val wallpaperState by wallpaperViewModel.wallpaperState.collectAsState()
 
     var showButtons by remember { mutableStateOf(true) }
     val context = LocalContext.current
@@ -84,20 +70,32 @@ fun WallpaperScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        Card(
-            modifier = Modifier
-                .fillMaxSize()
-                .clickable(onClick = { showButtons = !showButtons },
-                    indication = null,
-                    interactionSource = remember { MutableInteractionSource() })
-        ) {
-            AsyncImage(
-                model = imageId,
-                contentDescription = "image",
-                contentScale = ContentScale.FillBounds,
-                modifier = Modifier.fillMaxSize(),
-                imageLoader = ImageLoader.Builder(LocalContext.current).build()
-            )
+        when {
+            wallpaperState.isLoading -> {
+                CircularProgressIndicator()
+            }
+
+            wallpaperState.errorMessage != null -> {
+                Text("Error: ${wallpaperState.errorMessage}")
+            }
+
+            wallpaperState.wallpaper != null -> {
+                Card(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clickable(onClick = { showButtons = !showButtons },
+                            indication = null,
+                            interactionSource = remember { MutableInteractionSource() })
+                ) {
+                    AsyncImage(
+                        model = wallpaperState.wallpaper!!.path,
+                        contentDescription = "Wallpaper",
+                        contentScale = ContentScale.FillBounds,
+                        modifier = Modifier.fillMaxSize(),
+                        imageLoader = ImageLoader.Builder(LocalContext.current).build()
+                    )
+                }
+            }
         }
 
         Column(
