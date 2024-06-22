@@ -6,3 +6,7 @@ import com.example.wallpapertest.domain.model.WallpaperItem
 data class WallpaperResponse(
     val data: List<WallpaperItem>, val meta: MetaData
 )
+
+data class WallpaperDetailsResponse(
+    val data: WallpaperItem,
+)

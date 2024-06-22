@@ -1,5 +1,8 @@
 package com.example.wallpapertest.ui.screens.home
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wallpapertest.domain.model.WallpaperItem
@@ -18,18 +21,36 @@ class HomeViewModel @Inject constructor(
     private val _wallpaper = MutableStateFlow<Result<List<WallpaperItem>>>(Result.Loading())
     val wallpaper: StateFlow<Result<List<WallpaperItem>>> = _wallpaper
 
+    private val _selectedIndex = mutableIntStateOf(0)
+    val selectedIndex: MutableState<Int> = _selectedIndex
+
+    private val _isDataFetched = MutableStateFlow(false)
+    val isDataFetched: StateFlow<Boolean> = _isDataFetched
+
+    private val _categories =
+        mutableStateOf(listOf("Random", "Latest", "Popular", "Featured", "Hot", "MostViewed"))
+    val categories: MutableState<List<String>> = _categories
+
+    private var currentCategory: String? = null
+
     fun fetchWallpapers(category: String, page: Int = 1) {
-        viewModelScope.launch {
-            when (category) {
-                "Random" -> repository.getRandomWallpapers(page)
-                "Latest" -> repository.getLatestWallpapers(page)
-                "Popular" -> repository.getPopularWallpapers(page)
-                "Featured" -> repository.getFeaturedWallpapers(page)
-                "Hot" -> repository.getHotWallpapers(page)
-                "MostViewed" -> repository.getMostViewedWallpapers(page)
-                else -> return@launch
-            }.collect {
-                _wallpaper.value = it
+        if (!_isDataFetched.value || currentCategory != category) {
+            currentCategory = category
+            viewModelScope.launch {
+                val wallpaperResult = when (category) {
+                    "Random" -> repository.getRandomWallpapers(page)
+                    "Latest" -> repository.getLatestWallpapers(page)
+                    "Popular" -> repository.getPopularWallpapers(page)
+                    "Featured" -> repository.getFeaturedWallpapers(page)
+                    "Hot" -> repository.getHotWallpapers(page)
+                    "MostViewed" -> repository.getMostViewedWallpapers(page)
+                    else -> return@launch
+                }
+
+                wallpaperResult.collect {
+                    _wallpaper.value = it
+                    _isDataFetched.value = true
+                }
             }
         }
     }

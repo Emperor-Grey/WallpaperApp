@@ -34,7 +34,9 @@ fun ScrollTab(categories: List<String>, selectedIndex: Int, onTabSelected: (Int)
                         .padding(end = 12.dp)
                         .clip(RoundedCornerShape(10.dp))
                         .clickable(
-                            onClick = { onTabSelected(index) },
+                            onClick = {
+                                onTabSelected(index)
+                            },
                             interactionSource = remember { MutableInteractionSource() },
                             indication = rememberRipple(bounded = true),
                         ), colors = CardDefaults.cardColors(
@@ -43,7 +45,7 @@ fun ScrollTab(categories: List<String>, selectedIndex: Int, onTabSelected: (Int)
                             alpha = 0.15f
                         )
                     )
-                )  {
+                ) {
                     Text(
                         categories[index],
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),

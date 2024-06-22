@@ -2,6 +2,7 @@ package com.example.wallpapertest.data.repository
 
 import coil.network.HttpException
 import com.example.wallpapertest.data.remote.network.api.WallHeavenApi
+import com.example.wallpapertest.data.remote.network.response.WallpaperDetailsResponse
 import com.example.wallpapertest.domain.model.WallpaperItem
 import com.example.wallpapertest.domain.repository.WallpaperRepository
 import com.example.wallpapertest.utils.Result
@@ -15,7 +16,7 @@ class WallpaperRepositoryImpl @Inject constructor(private val wallpaperService: 
 
 //    private val wallpaperService: WallHeavenApi = retrofitInstance.getWallpaperService()
 
-    override suspend fun getWallpaperById(wallpaperId: String): Flow<Result<WallpaperItem>> {
+    override suspend fun getWallpaperById(wallpaperId: String): Flow<Result<WallpaperDetailsResponse>> {
         return flow {
             emit(Result.Loading())
             val wallpaper = try {

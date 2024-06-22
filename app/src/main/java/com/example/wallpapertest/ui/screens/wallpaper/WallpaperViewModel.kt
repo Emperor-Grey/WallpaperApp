@@ -23,7 +23,6 @@ class WallpaperViewModel @Inject constructor(
 
     fun loadWallpaper(wallpaperId: String) {
         viewModelScope.launch {
-            _wallpaperState.value = WallpaperUiState(isLoading = true)
             repository.getWallpaperById(wallpaperId = wallpaperId).collect { result ->
                 when (result) {
                     is Result.Success -> {
