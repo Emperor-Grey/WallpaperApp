@@ -1,3 +1,4 @@
+import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -13,8 +14,8 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.wallpapertest.ui.screens.wallpaper.WallpaperContent
 import com.example.wallpapertest.ui.screens.wallpaper.WallpaperControls
 import com.example.wallpapertest.ui.screens.wallpaper.WallpaperViewModel
-import com.example.wallpapertest.utils.helpers.downloadImage1
-import com.example.wallpapertest.utils.helpers.setAsWallpaper1
+import com.example.wallpapertest.utils.helpers.downloadImage
+import com.example.wallpapertest.utils.helpers.setAsWallpaper
 import kotlinx.coroutines.launch
 
 @Composable
@@ -43,12 +44,12 @@ fun WallpaperScreen(
             coroutineScope = coroutineScope,
             onSetWallpaperClick = {
                 coroutineScope.launch {
-                    setAsWallpaper1(context, imageId)
+                    setAsWallpaper(context, Uri.parse(imageId))
                 }
             },
             onDownloadClick = {
                 coroutineScope.launch {
-                    downloadImage1(imageUrl = imageId, context = context)
+                    downloadImage(imageUrl = imageId, context = context)
                 }
             })
     }

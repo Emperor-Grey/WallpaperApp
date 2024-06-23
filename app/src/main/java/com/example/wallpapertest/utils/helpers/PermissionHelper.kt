@@ -72,6 +72,7 @@ private fun HandleRequests(
 fun PermissionDeniedContent(
     shouldShowRationale: Boolean,
     onRequestPermission: () -> Unit,
+    // Don't remove this because iam using it above
     navController: NavHostController,
     homeViewModel: HomeViewModel,
     wallpaperViewModel: WallpaperViewModel,

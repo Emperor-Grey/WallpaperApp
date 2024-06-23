@@ -17,18 +17,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.OutputStream
 import java.net.URL
+
 suspend fun downloadImage1(
     context: Context, imageUrl: String,
 ) = withContext(Dispatchers.IO) {
     try {
         val loader = ImageLoader(context)
-        val request = ImageRequest.Builder(context)
-            .data(imageUrl)
-            .allowHardware(false)
-            .build()
+        val request = ImageRequest.Builder(context).data(imageUrl).allowHardware(false).build()
 
         val result = loader.execute(request)
         val drawable = result.drawable
@@ -48,10 +45,12 @@ suspend fun downloadImage1(
                     put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
                 }
 
-                imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                imageUri =
+                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
                 fileOutputStream = resolver.openOutputStream(imageUri!!)
             } else {
-                val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                val imagesDir =
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                 val image = File(imagesDir, filename)
                 fileOutputStream = FileOutputStream(image)
                 imageUri = Uri.fromFile(image)
@@ -80,10 +79,7 @@ suspend fun downloadImage1(
 suspend fun setAsWallpaper1(context: Context, imageUrl: String) = withContext(Dispatchers.IO) {
     try {
         val loader = ImageLoader(context)
-        val request = ImageRequest.Builder(context)
-            .data(imageUrl)
-            .allowHardware(false)
-            .build()
+        val request = ImageRequest.Builder(context).data(imageUrl).allowHardware(false).build()
 
         val result = loader.execute(request)
         val drawable = result.drawable
@@ -126,7 +122,7 @@ suspend fun downloadImage(imageUrl: String, context: Context): Uri {
             }
 
             // Save image to images directory
-            val file = File(imagesDir, "downloaded_image.jpg")
+            val file = File(imagesDir, "${System.currentTimeMillis()}.jpg")
             val outputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
             outputStream.flush()
