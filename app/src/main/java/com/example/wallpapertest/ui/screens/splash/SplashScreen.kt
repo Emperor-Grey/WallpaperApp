@@ -37,6 +37,7 @@ fun SplashScreen(navigateToHomeScreen: () -> Unit) {
     }
 }
 
+
 @Preview
 @Composable
 private fun SplashScreenPrev() {

@@ -64,9 +64,12 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
 
+    // Google Fonts
     implementation(libs.androidx.ui.text.google.fonts)
     // Animation
     implementation(libs.androidx.animation)
+    // Accompanist permission
+    implementation("com.google.accompanist:accompanist-permissions:0.21.0-beta")
     // Coil
     implementation(libs.coil.compose)
     // Coroutines

@@ -12,7 +12,11 @@ import com.example.wallpapertest.ui.screens.wallpaper.WallpaperViewModel
 
 
 @Composable
-fun SetupNavigation(navController: NavHostController, homeViewModel: HomeViewModel,wallpaperViewModel :WallpaperViewModel) {
+fun SetupNavigation(
+    navController: NavHostController,
+    homeViewModel: HomeViewModel,
+    wallpaperViewModel: WallpaperViewModel
+) {
 
     val screen = remember(navController) {
         Screens(navController = navController)
@@ -20,7 +24,10 @@ fun SetupNavigation(navController: NavHostController, homeViewModel: HomeViewMod
 
     NavHost(navController = navController, startDestination = "splash") {
         splashComposable(navigateToHomeScreen = screen.splash)
-        homeComposable(navigateToWallpaper = screen.home,homeViewModel = homeViewModel)
-        wallpaperComposable(navigateToHomeScreen = screen.wallpaper,wallpaperViewModel = wallpaperViewModel)
+        homeComposable(navigateToWallpaper = screen.home, homeViewModel = homeViewModel)
+        wallpaperComposable(
+            navigateToHomeScreen = screen.wallpaper,
+            wallpaperViewModel = wallpaperViewModel
+        )
     }
 }

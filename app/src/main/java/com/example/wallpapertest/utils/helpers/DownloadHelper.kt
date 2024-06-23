@@ -20,46 +20,53 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.net.URL
-
 suspend fun downloadImage1(
     context: Context, imageUrl: String,
 ) = withContext(Dispatchers.IO) {
     try {
         val loader = ImageLoader(context)
-        val request = ImageRequest.Builder(context).data(imageUrl).allowHardware(false).build()
+        val request = ImageRequest.Builder(context)
+            .data(imageUrl)
+            .allowHardware(false)
+            .build()
 
         val result = loader.execute(request)
-        val bitmap = (result.drawable as BitmapDrawable).bitmap
-        val filename = "${System.currentTimeMillis()}.jpg"
+        val drawable = result.drawable
 
-        val fileOutputStream: OutputStream?
-        val imageUri: Uri?
+        if (drawable is BitmapDrawable) {
+            val bitmap = drawable.bitmap
+            val filename = "${System.currentTimeMillis()}.jpg"
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-            val resolver = context.contentResolver
-            val contentValues = ContentValues().apply {
-                put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-                put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
-                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+            val fileOutputStream: OutputStream?
+            val imageUri: Uri?
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                val resolver = context.contentResolver
+                val contentValues = ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                }
+
+                imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                fileOutputStream = resolver.openOutputStream(imageUri!!)
+            } else {
+                val imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                val image = File(imagesDir, filename)
+                fileOutputStream = FileOutputStream(image)
+                imageUri = Uri.fromFile(image)
             }
 
-            imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-            fileOutputStream = resolver.openOutputStream(imageUri!!)
+            fileOutputStream?.use {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+                it.flush()
+            }
+
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, "Image Downloaded", Toast.LENGTH_SHORT).show()
+            }
         } else {
-            val imagesDir =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-            val image = File(imagesDir, filename)
-            fileOutputStream = FileOutputStream(image)
-            imageUri = Uri.fromFile(image)
-        }
-
-        fileOutputStream?.use {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
-            it.flush()
-        }
-
-        withContext(Dispatchers.Main) {
-            Toast.makeText(context, "Image Downloaded", Toast.LENGTH_SHORT).show()
+            throw Exception("Failed to decode image")
         }
 
     } catch (e: Exception) {
@@ -71,20 +78,29 @@ suspend fun downloadImage1(
 }
 
 suspend fun setAsWallpaper1(context: Context, imageUrl: String) = withContext(Dispatchers.IO) {
-    val wallpaperManager = WallpaperManager.getInstance(context)
-
-    val loader = ImageLoader(context)
-    val request = ImageRequest.Builder(context).data(imageUrl).allowHardware(false).build()
-
-    val result = loader.execute(request)
-    val bitmap = (result.drawable as BitmapDrawable).bitmap
-
     try {
-        wallpaperManager.setBitmap(bitmap)
-        withContext(Dispatchers.Main) {
-            Toast.makeText(context, "Wallpaper Changed", Toast.LENGTH_SHORT).show()
+        val loader = ImageLoader(context)
+        val request = ImageRequest.Builder(context)
+            .data(imageUrl)
+            .allowHardware(false)
+            .build()
+
+        val result = loader.execute(request)
+        val drawable = result.drawable
+
+        if (drawable is BitmapDrawable) {
+            val bitmap = drawable.bitmap
+            val wallpaperManager = WallpaperManager.getInstance(context)
+            wallpaperManager.setBitmap(bitmap)
+
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, "Wallpaper Changed", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            throw Exception("Failed to decode image")
         }
-    } catch (e: IOException) {
+
+    } catch (e: Exception) {
         e.printStackTrace()
         withContext(Dispatchers.Main) {
             Toast.makeText(context, "Failed to Set Wallpaper", Toast.LENGTH_SHORT).show()
