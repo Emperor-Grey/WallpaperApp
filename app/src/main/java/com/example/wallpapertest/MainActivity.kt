@@ -1,11 +1,13 @@
 package com.example.wallpapertest
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.wallpapertest.ui.screens.home.HomeViewModel
@@ -35,14 +37,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             navController = rememberNavController()
             WallpaperTestTheme {
+                val context = LocalContext.current
+
                 RequestMultiplePermissions(
                     navController = navController,
                     homeViewModel = homeViewModel,
                     wallpaperViewModel = wallpaperViewModel,
-                    permissions = listOf(
+                    context = context,
+                    permissions = listOfNotNull(
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) android.Manifest.permission.READ_MEDIA_IMAGES else android.Manifest.permission.READ_EXTERNAL_STORAGE,
                         android.Manifest.permission.SET_WALLPAPER,
-                        android.Manifest.permission.READ_MEDIA_IMAGES,
-                        android.Manifest.permission.POST_NOTIFICATIONS
+                        android.Manifest.permission.INTERNET,
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) android.Manifest.permission.POST_NOTIFICATIONS else null
                     )
                 )
             }
