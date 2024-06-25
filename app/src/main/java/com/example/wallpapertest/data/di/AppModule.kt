@@ -1,4 +1,4 @@
-package com.example.wallpapertest.di
+package com.example.wallpapertest.data.di
 
 import com.example.wallpapertest.data.remote.network.api.WallHeavenApi
 import com.example.wallpapertest.data.repository.WallpaperRepositoryImpl

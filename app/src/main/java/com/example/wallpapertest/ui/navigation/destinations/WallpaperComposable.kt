@@ -1,4 +1,4 @@
-package com.example.wallpapertest.navigation.destinations
+package com.example.wallpapertest.ui.navigation.destinations
 
 import WallpaperScreen
 import androidx.navigation.NavGraphBuilder

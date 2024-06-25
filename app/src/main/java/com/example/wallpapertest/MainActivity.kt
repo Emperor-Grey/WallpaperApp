@@ -1,5 +1,6 @@
 package com.example.wallpapertest
 
+import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,10 +11,10 @@ import androidx.activity.viewModels
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.wallpapertest.data.utils.helpers.RequestMultiplePermissions
 import com.example.wallpapertest.ui.screens.home.HomeViewModel
 import com.example.wallpapertest.ui.screens.wallpaper.WallpaperViewModel
 import com.example.wallpapertest.ui.theme.WallpaperTestTheme
-import com.example.wallpapertest.utils.helpers.RequestMultiplePermissions
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,10 +46,10 @@ class MainActivity : ComponentActivity() {
                     wallpaperViewModel = wallpaperViewModel,
                     context = context,
                     permissions = listOfNotNull(
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) android.Manifest.permission.READ_MEDIA_IMAGES else android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        android.Manifest.permission.SET_WALLPAPER,
-                        android.Manifest.permission.INTERNET,
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) android.Manifest.permission.POST_NOTIFICATIONS else null
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) Manifest.permission.READ_MEDIA_IMAGES else Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.SET_WALLPAPER,
+                        Manifest.permission.INTERNET,
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) Manifest.permission.POST_NOTIFICATIONS else null
                     )
                 )
             }

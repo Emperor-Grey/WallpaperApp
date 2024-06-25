@@ -1,4 +1,4 @@
-package com.example.wallpapertest.navigation
+package com.example.wallpapertest.ui.navigation
 
 import androidx.navigation.NavController
 

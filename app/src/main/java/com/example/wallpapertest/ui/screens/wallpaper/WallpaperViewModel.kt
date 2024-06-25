@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wallpapertest.domain.model.WallpaperUiState
 import com.example.wallpapertest.domain.repository.WallpaperRepository
-import com.example.wallpapertest.utils.Result
+import com.example.wallpapertest.data.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

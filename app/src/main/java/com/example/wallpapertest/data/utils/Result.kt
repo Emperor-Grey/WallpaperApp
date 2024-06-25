@@ -1,4 +1,4 @@
-package com.example.wallpapertest.utils
+package com.example.wallpapertest.data.utils
 
 sealed class Result<T>(
     val data: T? = null, val message: String? = null

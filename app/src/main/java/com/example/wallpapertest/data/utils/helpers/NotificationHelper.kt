@@ -1,4 +1,4 @@
-package com.example.wallpapertest.utils.helpers
+package com.example.wallpapertest.data.utils.helpers
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

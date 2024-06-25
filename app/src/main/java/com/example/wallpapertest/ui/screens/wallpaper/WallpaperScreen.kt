@@ -14,8 +14,8 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.wallpapertest.ui.screens.wallpaper.WallpaperContent
 import com.example.wallpapertest.ui.screens.wallpaper.WallpaperControls
 import com.example.wallpapertest.ui.screens.wallpaper.WallpaperViewModel
-import com.example.wallpapertest.utils.helpers.downloadImage
-import com.example.wallpapertest.utils.helpers.setAsWallpaper
+import com.example.wallpapertest.data.utils.helpers.downloadImage
+import com.example.wallpapertest.data.utils.helpers.setAsWallpaper
 import kotlinx.coroutines.launch
 
 @Composable

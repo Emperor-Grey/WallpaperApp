@@ -1,4 +1,4 @@
-package com.example.wallpapertest.utils.helpers
+package com.example.wallpapertest.data.utils.helpers
 
 import android.content.Context
 import android.content.Intent
@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.wallpapertest.navigation.SetupNavigation
+import com.example.wallpapertest.ui.navigation.SetupNavigation
 import com.example.wallpapertest.ui.screens.home.HomeViewModel
 import com.example.wallpapertest.ui.screens.wallpaper.WallpaperViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi

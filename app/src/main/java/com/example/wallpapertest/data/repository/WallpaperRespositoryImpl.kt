@@ -5,7 +5,7 @@ import com.example.wallpapertest.data.remote.network.api.WallHeavenApi
 import com.example.wallpapertest.data.remote.network.response.WallpaperDetailsResponse
 import com.example.wallpapertest.domain.model.WallpaperItem
 import com.example.wallpapertest.domain.repository.WallpaperRepository
-import com.example.wallpapertest.utils.Result
+import com.example.wallpapertest.data.utils.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException

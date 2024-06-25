@@ -34,7 +34,7 @@ import com.example.wallpapertest.ui.common.components.AICard
 import com.example.wallpapertest.ui.common.components.ScrollTab
 import com.example.wallpapertest.ui.common.components.WallGridItem
 import com.example.wallpapertest.ui.theme.salsaFontFamily
-import com.example.wallpapertest.utils.Result
+import com.example.wallpapertest.data.utils.Result
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
