@@ -32,8 +32,10 @@ fun WallGridItem(wallpaper: WallpaperItem, onItemClick: () -> Unit) {
                 }
             },
             loading = {
-                Box(modifier = Modifier.matchParentSize()) {
-                    CircularProgressIndicator(Modifier.align(Alignment.Center))
+                Box(
+                    modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
                 }
             })
     }

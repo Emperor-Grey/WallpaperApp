@@ -73,12 +73,12 @@ fun HomeContent(
                         .fillMaxSize()
                         .padding(horizontal = 12.dp)
                         .nestedScroll(scrollBehavior.nestedScrollConnection)
-                        .padding(padding)
+                        .padding(top = padding.calculateTopPadding())
                 ) {
                     item(span = StaggeredGridItemSpan.FullLine) {
                         Column(modifier = Modifier.fillMaxWidth()) {
                             AICard()
-                            Spacer(modifier = Modifier.height(16.dp))
+                            Spacer(modifier = Modifier.height(12.dp))
                             Column(modifier = Modifier.fillMaxWidth()) {
                                 Text(
                                     text = "Discover",
