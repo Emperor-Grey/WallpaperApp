@@ -1,41 +1,40 @@
 package com.example.wallpapertest.ui.common.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
-import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import com.example.wallpapertest.domain.model.WallpaperItem
 
+
 @Composable
-fun WallGridItem(onItemClick: (String) -> Unit, wallpaper: WallpaperItem) {
+fun WallGridItem(wallpaper: WallpaperItem, onItemClick: () -> Unit) {
     Card(
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp))
-            .clickable(onClick = { onItemClick(wallpaper.id) })
+            .clickable(onClick = onItemClick)
     ) {
-        AsyncImage(
-            model = wallpaper.path,
-            contentDescription = "image",
-            contentScale = ContentScale.FillBounds,
+        SubcomposeAsyncImage(model = wallpaper.path,
             modifier = Modifier.fillMaxSize(),
-            imageLoader = ImageLoader.Builder(LocalContext.current).build()
-        )
+            contentDescription = "Wallpaper Image",
+            error = {
+                Box(Modifier.matchParentSize()) {
+                    Text("Image load failed", Modifier.align(Alignment.Center))
+                }
+            },
+            loading = {
+                Box(modifier = Modifier.matchParentSize()) {
+                    CircularProgressIndicator(Modifier.align(Alignment.Center))
+                }
+            })
     }
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
-//private fun WallGridItemPrev() {
-//    WallGridItem(
-//        image = "https://example.com/path/to/image.jpg", onItemClick = {}, wallpaper = wallpaper
-//    )
-//}

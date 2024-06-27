@@ -5,9 +5,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.wallpapertest.data.utils.Result
 import com.example.wallpapertest.domain.model.WallpaperItem
 import com.example.wallpapertest.domain.repository.WallpaperRepository
-import com.example.wallpapertest.data.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,8 +27,9 @@ class HomeViewModel @Inject constructor(
     private val _isDataFetched = MutableStateFlow(false)
     val isDataFetched: StateFlow<Boolean> = _isDataFetched
 
-    private val _categories =
-        mutableStateOf(listOf("Random", "Latest", "Popular", "Featured", "Hot", "MostViewed"))
+    private val _categories = mutableStateOf(
+        listOf("Random", "Latest", "Popular", "Featured", "Hot", "MostViewed")
+    )
     val categories: MutableState<List<String>> = _categories
 
     private var currentCategory: String? = null
