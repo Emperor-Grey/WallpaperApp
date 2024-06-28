@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.example.wallpapertest.ui.Constants
 import com.example.wallpapertest.ui.navigation.destinations.homeComposable
 import com.example.wallpapertest.ui.navigation.destinations.splashComposable
 import com.example.wallpapertest.ui.navigation.destinations.wallpaperComposable
@@ -22,9 +23,12 @@ fun SetupNavigation(
         Screens(navController = navController)
     }
 
-    NavHost(navController = navController, startDestination = "splash") {
+    NavHost(navController = navController, startDestination = Constants.START_DESTINATION) {
         splashComposable(navigateToHomeScreen = screen.splash)
         homeComposable(navigateToWallpaper = screen.home, homeViewModel = homeViewModel)
-        wallpaperComposable(navigateToHomeScreen = screen.wallpaper, wallpaperViewModel = wallpaperViewModel)
+        wallpaperComposable(
+            navigateToHomeScreen = screen.wallpaper,
+            wallpaperViewModel = wallpaperViewModel
+        )
     }
 }

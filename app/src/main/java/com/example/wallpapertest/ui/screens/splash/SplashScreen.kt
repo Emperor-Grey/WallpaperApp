@@ -20,7 +20,11 @@ fun SplashScreen(navigateToHomeScreen: () -> Unit) {
         colors = listOf(Color.Transparent, Color.White), startY = 1300f, endY = 1700f
     )
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
         Image(
             painter = painterResource(id = R.drawable.image),
             contentDescription = "Background Image",

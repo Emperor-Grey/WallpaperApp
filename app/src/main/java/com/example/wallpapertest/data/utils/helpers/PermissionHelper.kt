@@ -5,12 +5,11 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
@@ -106,25 +105,22 @@ fun Content(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(50.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = text, textAlign = TextAlign.Center)
+        Text(
+            text = text,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onBackground
+        )
         Spacer(modifier = Modifier.height(12.dp))
         if (showButton) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Button(onClick = onClick) {
-                    Text(text = "Request")
-                }
-                Button(onClick = onSettingClick) {
-                    Text(text = "Open Settings")
-                }
-
+            Button(onClick = onClick) {
+                Text(
+                    text = "Request",
+                )
             }
         }
     }
@@ -143,18 +139,22 @@ fun PermissionDeniedContent(
     wallpaperViewModel: WallpaperViewModel,
 ) {
     if (shouldShowRationale) {
-        AlertDialog(onDismissRequest = {}, title = {
-            Text(
-                text = "Permission Request", style = TextStyle(
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                    fontWeight = FontWeight.Bold
+        AlertDialog(onDismissRequest = {},
+            title = {
+                Text(
+                    text = "Permission Request", style = TextStyle(
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                        fontWeight = FontWeight.Bold
+                    )
                 )
-            )
-        }, text = { Text(rationaleMessage) }, confirmButton = {
-            Button(onClick = onRequestPermission) {
-                Text("Give Permission")
-            }
-        })
+            },
+            text = { Text(rationaleMessage, color = MaterialTheme.colorScheme.onBackground) },
+            confirmButton = {
+                Button(onClick = onRequestPermission) {
+                    Text("Give Permission")
+                }
+            })
     } else {
         Content(
             text = deniedMessage,

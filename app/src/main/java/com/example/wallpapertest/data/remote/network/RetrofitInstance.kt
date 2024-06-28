@@ -7,6 +7,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+// We are using dependency injection with dagger hilt
+// if not then we can use this class
 class RetrofitInstance {
     private val httpClient: OkHttpClient by lazy {
         val httpLoggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
