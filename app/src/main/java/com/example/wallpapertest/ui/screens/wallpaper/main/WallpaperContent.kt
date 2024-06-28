@@ -1,4 +1,4 @@
-package com.example.wallpapertest.ui.screens.wallpaper
+package com.example.wallpapertest.ui.screens.wallpaper.main
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -19,7 +19,7 @@ import com.example.wallpapertest.domain.model.WallpaperUiState
 
 @Composable
 fun WallpaperContent(
-    wallpaperState: WallpaperUiState, showButtons: Boolean, toggleShowButtons: () -> Unit
+    wallpaperState: WallpaperUiState, toggleShowButtons: () -> Unit
 ) {
     when {
         wallpaperState.isLoading -> {

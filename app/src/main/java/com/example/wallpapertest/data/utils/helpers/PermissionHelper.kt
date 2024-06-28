@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.wallpapertest.ui.navigation.SetupNavigation
 import com.example.wallpapertest.ui.screens.home.HomeViewModel
-import com.example.wallpapertest.ui.screens.wallpaper.WallpaperViewModel
+import com.example.wallpapertest.ui.screens.wallpaper.main.WallpaperViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState

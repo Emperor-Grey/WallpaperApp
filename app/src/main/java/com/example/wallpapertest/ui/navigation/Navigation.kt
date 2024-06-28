@@ -8,7 +8,7 @@ import com.example.wallpapertest.ui.navigation.destinations.homeComposable
 import com.example.wallpapertest.ui.navigation.destinations.splashComposable
 import com.example.wallpapertest.ui.navigation.destinations.wallpaperComposable
 import com.example.wallpapertest.ui.screens.home.HomeViewModel
-import com.example.wallpapertest.ui.screens.wallpaper.WallpaperViewModel
+import com.example.wallpapertest.ui.screens.wallpaper.main.WallpaperViewModel
 
 
 @Composable
@@ -25,9 +25,6 @@ fun SetupNavigation(
     NavHost(navController = navController, startDestination = "splash") {
         splashComposable(navigateToHomeScreen = screen.splash)
         homeComposable(navigateToWallpaper = screen.home, homeViewModel = homeViewModel)
-        wallpaperComposable(
-            navigateToHomeScreen = screen.wallpaper,
-            wallpaperViewModel = wallpaperViewModel
-        )
+        wallpaperComposable(navigateToHomeScreen = screen.wallpaper, wallpaperViewModel = wallpaperViewModel)
     }
 }

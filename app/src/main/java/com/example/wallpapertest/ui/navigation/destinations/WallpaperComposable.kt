@@ -1,11 +1,11 @@
 package com.example.wallpapertest.ui.navigation.destinations
 
-import WallpaperScreen
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.wallpapertest.ui.screens.wallpaper.WallpaperViewModel
+import com.example.wallpapertest.ui.screens.wallpaper.main.WallpaperScreen
+import com.example.wallpapertest.ui.screens.wallpaper.main.WallpaperViewModel
 
 fun NavGraphBuilder.wallpaperComposable(
     navigateToHomeScreen: () -> Unit, wallpaperViewModel: WallpaperViewModel
