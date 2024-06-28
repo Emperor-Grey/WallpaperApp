@@ -18,13 +18,13 @@ import com.example.wallpapertest.ui.theme.WallpaperTestTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import dagger.hilt.android.AndroidEntryPoint
 
+@OptIn(ExperimentalPermissionsApi::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
     private val homeViewModel: HomeViewModel by viewModels()
     private val wallpaperViewModel: WallpaperViewModel by viewModels()
 
-    @OptIn(ExperimentalPermissionsApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(

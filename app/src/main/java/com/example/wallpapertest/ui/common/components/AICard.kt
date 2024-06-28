@@ -28,7 +28,7 @@ import com.example.wallpapertest.R
 import com.example.wallpapertest.ui.theme.salsaFontFamily
 
 @Composable
-fun AICard() {
+fun AICard(onCardClick: () -> Unit) {
     val brush = Brush.linearGradient(
         listOf(
             MaterialTheme.colorScheme.secondaryContainer,
@@ -43,7 +43,7 @@ fun AICard() {
     ) {
         val cardHeight = maxWidth * 0.5f
         Card(
-            onClick = {}, modifier = Modifier
+            onClick = onCardClick, modifier = Modifier
                 .fillMaxWidth()
                 .height(cardHeight)
         ) {
@@ -80,5 +80,5 @@ fun AICard() {
 @Preview(showBackground = true)
 @Composable
 private fun AICardPrev() {
-    AICard()
+    AICard(onCardClick = {})
 }

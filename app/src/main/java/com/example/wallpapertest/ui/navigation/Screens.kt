@@ -17,4 +17,8 @@ class Screens(navController: NavController) {
     val wallpaper: () -> Unit = {
         navController.navigate(route = "home")
     }
+
+    val gemini: () -> Unit = {
+        navController.navigate(route = "gemini")
+    }
 }

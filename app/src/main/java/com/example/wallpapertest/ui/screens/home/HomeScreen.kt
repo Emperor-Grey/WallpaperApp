@@ -17,7 +17,11 @@ import androidx.compose.ui.platform.LocalContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navigateToWallpaper: (String) -> Unit, homeViewModel: HomeViewModel) {
+fun HomeScreen(
+    navigateToWallpaper: (String) -> Unit,
+    homeViewModel: HomeViewModel,
+    navigateToGemini: () -> Unit
+) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val context = LocalContext.current
 
@@ -32,7 +36,8 @@ fun HomeScreen(navigateToWallpaper: (String) -> Unit, homeViewModel: HomeViewMod
             padding = it,
             navigateToWallpaper = navigateToWallpaper,
             scrollBehavior = scrollBehavior,
-            viewModel = homeViewModel
+            viewModel = homeViewModel,
+            onCardClick = navigateToGemini
         )
     }
 }

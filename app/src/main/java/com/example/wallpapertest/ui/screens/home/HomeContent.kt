@@ -41,6 +41,7 @@ import com.example.wallpapertest.ui.theme.salsaFontFamily
 fun HomeContent(
     padding: PaddingValues,
     navigateToWallpaper: (String) -> Unit,
+    onCardClick: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     viewModel: HomeViewModel
 ) {
@@ -77,7 +78,7 @@ fun HomeContent(
                 ) {
                     item(span = StaggeredGridItemSpan.FullLine) {
                         Column(modifier = Modifier.fillMaxWidth()) {
-                            AICard()
+                            AICard(onCardClick = onCardClick)
                             Spacer(modifier = Modifier.height(12.dp))
                             Column(modifier = Modifier.fillMaxWidth()) {
                                 Text(
