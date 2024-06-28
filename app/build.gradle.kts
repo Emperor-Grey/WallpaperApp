@@ -66,17 +66,23 @@ dependencies {
 
     // Google Fonts
     implementation(libs.androidx.ui.text.google.fonts)
+
     // Animation
     implementation(libs.androidx.animation)
+
     // Accompanist permission
-    implementation("com.google.accompanist:accompanist-permissions:0.21.0-beta")
+    implementation(libs.accompanist.permissions)
+
     // Coil
     implementation(libs.coil.compose)
+
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
+
     // ViewModels
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     kapt(libs.androidx.lifecycle.compiler)
+
     // Retrofit
     implementation(libs.retrofit)
     // Convertor factory
@@ -84,6 +90,7 @@ dependencies {
     implementation(libs.retrofit.converters)
     // Logging Interceptors
     implementation(libs.logging.interceptor)
+
     // Dagger and hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

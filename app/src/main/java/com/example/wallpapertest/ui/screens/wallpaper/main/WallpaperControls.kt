@@ -1,4 +1,4 @@
-package com.example.wallpapertest.ui.screens.wallpaper
+package com.example.wallpapertest.ui.screens.wallpaper.main
 
 import android.content.Context
 import android.widget.Toast
@@ -34,17 +34,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.wallpapertest.R
 import com.example.wallpapertest.ui.theme.salsaFontFamily
-import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun WallpaperControls(
     navigateBack: () -> Unit,
     showButtons: Boolean,
-    imageId: String,
     context: Context,
-    coroutineScope: CoroutineScope,
     onSetWallpaperClick: () -> Unit,
-    onDownloadClick: () -> Unit
+    onDownloadClick: () -> Unit,
+    onPreviewClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -62,9 +60,11 @@ fun WallpaperControls(
                 animationSpec = tween(durationMillis = 500)
             )
         ) {
-            LowerButtons(onSetWallpaperClick = onSetWallpaperClick, onPreviewClick = {
-                Toast.makeText(context, "Preview Clicked", Toast.LENGTH_SHORT).show()
-            }, onDownloadClick = onDownloadClick)
+            LowerButtons(
+                onSetWallpaperClick = onSetWallpaperClick,
+                onPreviewClick = onPreviewClick,
+                onDownloadClick = onDownloadClick
+            )
         }
     }
 }

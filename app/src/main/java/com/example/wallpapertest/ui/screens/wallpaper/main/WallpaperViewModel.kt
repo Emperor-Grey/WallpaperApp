@@ -1,4 +1,4 @@
-package com.example.wallpapertest.ui.screens.wallpaper
+package com.example.wallpapertest.ui.screens.wallpaper.main
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

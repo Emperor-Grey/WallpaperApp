@@ -13,7 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.wallpapertest.data.utils.helpers.RequestMultiplePermissions
 import com.example.wallpapertest.ui.screens.home.HomeViewModel
-import com.example.wallpapertest.ui.screens.wallpaper.WallpaperViewModel
+import com.example.wallpapertest.ui.screens.wallpaper.main.WallpaperViewModel
 import com.example.wallpapertest.ui.theme.WallpaperTestTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import dagger.hilt.android.AndroidEntryPoint
