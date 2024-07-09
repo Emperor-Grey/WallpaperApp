@@ -1,12 +1,15 @@
 package com.example.wallpapertest.data.di
 
+import android.content.Context
 import com.example.wallpapertest.data.remote.network.api.WallHeavenApi
 import com.example.wallpapertest.data.repository.WallpaperRepositoryImpl
 import com.example.wallpapertest.domain.repository.WallpaperRepository
+import com.example.wallpapertest.ui.utils.DataStoreManager
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,7 +20,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    
+
+    @Provides
+    @Singleton
+    fun provideDataStorePrefs(@ApplicationContext context: Context): DataStoreManager {
+        return DataStoreManager(context)
+    }
+
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {

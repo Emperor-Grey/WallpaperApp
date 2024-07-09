@@ -8,13 +8,15 @@ import com.example.wallpapertest.ui.screens.home.HomeViewModel
 fun NavGraphBuilder.homeComposable(
     navigateToWallpaper: (String) -> Unit,
     homeViewModel: HomeViewModel,
-    navigateToGemini: () -> Unit
+    navigateToGemini: () -> Unit,
+    navigateToSearch: () -> Unit
 ) {
     composable(route = "home") {
         HomeScreen(
             navigateToWallpaper = navigateToWallpaper,
             homeViewModel = homeViewModel,
-            navigateToGemini = navigateToGemini
+            navigateToGemini = navigateToGemini,
+            navigateToSearch = navigateToSearch
         )
     }
 }

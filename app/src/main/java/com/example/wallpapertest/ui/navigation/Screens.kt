@@ -21,4 +21,7 @@ class Screens(navController: NavController) {
     val gemini: () -> Unit = {
         navController.navigate(route = "gemini")
     }
+    val search: () -> Unit = {
+        navController.navigate(route = "search")
+    }
 }

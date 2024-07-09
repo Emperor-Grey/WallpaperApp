@@ -1,6 +1,5 @@
 package com.example.wallpapertest.ui.screens.home
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -20,7 +19,8 @@ import androidx.compose.ui.platform.LocalContext
 fun HomeScreen(
     navigateToWallpaper: (String) -> Unit,
     homeViewModel: HomeViewModel,
-    navigateToGemini: () -> Unit
+    navigateToGemini: () -> Unit,
+    navigateToSearch: () -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val context = LocalContext.current
@@ -28,9 +28,7 @@ fun HomeScreen(
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         HomeTopAppBar(scrollBehavior)
     }, floatingActionButton = {
-        SearchFab(onFabClick = {
-            Toast.makeText(context, "Not yet Implemented", Toast.LENGTH_SHORT).show()
-        })
+        SearchFab(onFabClick = navigateToSearch)
     }, containerColor = MaterialTheme.colorScheme.background) {
         HomeContent(
             padding = it,

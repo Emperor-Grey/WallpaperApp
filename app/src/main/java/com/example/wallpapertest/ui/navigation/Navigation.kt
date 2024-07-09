@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import com.example.wallpapertest.ui.Constants
 import com.example.wallpapertest.ui.navigation.destinations.geminiComposable
 import com.example.wallpapertest.ui.navigation.destinations.homeComposable
+import com.example.wallpapertest.ui.navigation.destinations.searchComposable
 import com.example.wallpapertest.ui.navigation.destinations.splashComposable
 import com.example.wallpapertest.ui.navigation.destinations.wallpaperComposable
 import com.example.wallpapertest.ui.screens.home.HomeViewModel
@@ -29,9 +30,11 @@ fun SetupNavigation(
         homeComposable(
             navigateToWallpaper = screen.home,
             homeViewModel = homeViewModel,
-            navigateToGemini = screen.gemini
+            navigateToGemini = screen.gemini,
+            navigateToSearch = screen.search
         )
         geminiComposable()
+        searchComposable()
         wallpaperComposable(
             navigateToHomeScreen = screen.wallpaper, wallpaperViewModel = wallpaperViewModel
         )

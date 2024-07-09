@@ -9,6 +9,7 @@ import com.example.wallpapertest.data.utils.Result
 import com.example.wallpapertest.domain.model.WallpaperItem
 import com.example.wallpapertest.domain.repository.WallpaperRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -37,7 +38,7 @@ class HomeViewModel @Inject constructor(
     fun fetchWallpapers(category: String, page: Int = 1) {
         if (!_isDataFetched.value || currentCategory != category) {
             currentCategory = category
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 val wallpaperResult = when (category) {
                     "Random" -> repository.getRandomWallpapers(page)
                     "Latest" -> repository.getLatestWallpapers(page)

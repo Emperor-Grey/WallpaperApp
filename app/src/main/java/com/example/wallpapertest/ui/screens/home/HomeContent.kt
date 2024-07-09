@@ -1,5 +1,6 @@
 package com.example.wallpapertest.ui.screens.home
 
+import android.widget.Toast
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,6 +48,7 @@ fun HomeContent(
     viewModel: HomeViewModel
 ) {
     val categories by viewModel.categories
+    val context = LocalContext.current
     var selectedIndex by viewModel.selectedIndex
     val wallpapersState by viewModel.wallpaper.collectAsState()
     val isDataFetched by viewModel.isDataFetched.collectAsState()
@@ -78,7 +81,11 @@ fun HomeContent(
                 ) {
                     item(span = StaggeredGridItemSpan.FullLine) {
                         Column(modifier = Modifier.fillMaxWidth()) {
-                            AICard(onCardClick = onCardClick)
+                            AICard(onCardClick = {
+                                Toast.makeText(
+                                    context, "Feature Coming in the next update", Toast.LENGTH_SHORT
+                                ).show()
+                            })
                             Spacer(modifier = Modifier.height(12.dp))
                             Column(modifier = Modifier.fillMaxWidth()) {
                                 Text(
@@ -123,4 +130,77 @@ fun HomeContent(
             }
         }
     }
+
+
+//    LazyVerticalStaggeredGrid(
+//        columns = StaggeredGridCells.Fixed(2),
+//        verticalItemSpacing = 8.dp,
+//        flingBehavior = ScrollableDefaults.flingBehavior(),
+//        horizontalArrangement = Arrangement.spacedBy(8.dp),
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .padding(horizontal = 12.dp)
+//            .nestedScroll(scrollBehavior.nestedScrollConnection)
+//            .padding(top = padding.calculateTopPadding())
+//    ) {
+//        item(span = StaggeredGridItemSpan.FullLine) {
+//            Column(modifier = Modifier.fillMaxWidth()) {
+//                AICard(onCardClick = onCardClick)
+//                Spacer(modifier = Modifier.height(12.dp))
+//                Column(modifier = Modifier.fillMaxWidth()) {
+//                    Text(
+//                        text = "Discover",
+//                        fontFamily = salsaFontFamily,
+//                        fontWeight = FontWeight.Medium,
+//                        style = MaterialTheme.typography.headlineLarge,
+//                        color = MaterialTheme.colorScheme.onSurface
+//                    )
+//                    Text(
+//                        text = "Discover the best wallpapers",
+//                        fontFamily = salsaFontFamily,
+//                        style = MaterialTheme.typography.titleMedium.copy(fontSize = 18.sp),
+//                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+//                    )
+//                    Spacer(modifier = Modifier.height(12.dp))
+//                    ScrollTab(categories = categories, selectedIndex = selectedIndex) {
+//                        selectedIndex = it
+//                        viewModel.fetchWallpapers(categories[it])
+//                    }
+//                }
+//            }
+//        }
+//
+//        when (val result = wallpapersState) {
+//            is Result.Loading -> {
+//                item(span = StaggeredGridItemSpan.FullLine) {
+//                    Box(modifier = Modifier.fillMaxWidth()) {
+//                        CircularProgressIndicator(
+//                            modifier = Modifier.align(Alignment.Center)
+//                        )
+//                    }
+//                }
+//            }
+//
+//            is Result.Success -> {
+//                items(result.data!!) { wallpaper ->
+//                    WallGridItem(
+//                        wallpaper = wallpaper,
+//                        onItemClick = { navigateToWallpaper(wallpaper.id) },
+//                    )
+//                }
+//            }
+//
+//            is Result.Error -> {
+//                item(span = StaggeredGridItemSpan.FullLine) {
+//                    Box(
+//                        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+//                    ) {
+//                        Text(
+//                            text = "Error: ${result.message}", modifier = Modifier.padding(16.dp)
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
